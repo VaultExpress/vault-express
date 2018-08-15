@@ -1,6 +1,6 @@
-# Project Title
+# the-vault project
 
-One Paragraph of project description goes here
+A simply secure sign-up/sign-in implementation for web app. You may consider this as runnable guideline for your implementation.
 
 ## Getting Started
 
@@ -8,78 +8,60 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+You need to install MongoDB to run on your machine
 
-```
-Give examples
-```
+https://docs.mongodb.com/manual/administration/install-community/
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
-
-Say what the step will be
-
 ```
-Give the example
-```
+git clone https://github.com/VaultExpress/the-vault.git
 
-And repeat
+cd the-vault
 
-```
-until finished
+npm init
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Edit .env file and then you can start the server
+
+```
+npm start
+```
 
 ## Running the tests
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
 ```
-Give an example
-```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
+npm test
 ```
 
 ## Deployment
 
-Add additional notes about how to deploy this on a live system
+```
+npm run deploy
+```
 
 ## Built With
 
- Vector illustration credit: <a rel="nofollow" href="https://www.Vecteezy.com/">Vecteezy</a>
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+* [Vecteezy](https://www.Vecteezy.com/) - Vector illustration credit: <a rel="nofollow" href="https://www.Vecteezy.com/">Vecteezy</a>
 
 ## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](
+https://github.com/VaultExpress/the-vault/tags).
 
 ## Authors
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+* **Jun Yada** - *Initial work* - [junyada100](https://github.com/junyada100)
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/VaultExpress/the-vault/graphs/contributors) who participated in this project.
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details
 
 ## Acknowledgments
 
