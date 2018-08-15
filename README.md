@@ -1,4 +1,4 @@
-# the-vault project
+# the-vault project - ALPHA stage
 
 A simply secure sign-up/sign-in implementation for web app. You may consider this as runnable guideline for your implementation.
 
