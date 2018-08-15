@@ -2,6 +2,16 @@
 
 A simply secure sign-up/sign-in implementation for web app. You may consider this as runnable guideline for your implementation.
 
+This project demonstrates the secure web app by using 3 public web pages and 1 protected user profile page
+
+**Public pages**
+* /landing.html
+* /signup.html
+* /signin.html
+
+**Protected page**
+* /profile
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
@@ -22,7 +32,9 @@ cd the-vault
 npm init
 ```
 
-Edit .env file and then you can start the server
+For environment vairables we use .env file which you can see what we use in .env-example
+
+and then you can start the server by
 
 ```
 npm start
