@@ -42,7 +42,7 @@ npm run deploy
 
 ## Built With
 
-* [Vecteezy](https://www.Vecteezy.com/) - Vector illustration credit: <a rel="nofollow" href="https://www.Vecteezy.com/">Vecteezy</a>
+* [Express.js](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
 
 ## Contributing
 
@@ -65,6 +65,4 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+* [Vecteezy](https://www.Vecteezy.com/) - Vector illustration credit: <a rel="nofollow" href="https://www.Vecteezy.com/">Vecteezy</a>
