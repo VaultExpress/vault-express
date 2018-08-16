@@ -1,0 +1,133 @@
+.container {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.landing-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  background: #fff;
+  width: 360px;
+  border-radius: 15px;
+  box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  -moz-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  -webkit-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  -o-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+  -ms-box-shadow: 0 3px 20px 0px rgba(0, 0, 0, 0.1);
+}
+.landing-title {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.landing-img {
+  padding-right: 10px;
+}
+.landing-link {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: 50px;
+}
+.container-menu {
+  padding-top: 1rem;
+  background-color: #F64C72;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-size: 1.5rem;
+}
+.container-menu ul {
+  list-style: none;
+  padding: 0;
+  text-align: center;
+}
+.container-menu li {
+  padding-bottom: .6rem;
+}
+.container-menu a {
+  color: #EAE3EA;
+  text-decoration: none;
+}
+.container-menu a:hover {
+  color: #FFFFFF;
+}
+.container-content {
+  padding: 2rem;
+}
+@media (min-width:768px) {
+  .container-menu {
+    width: 17rem;
+    height: 100vh;
+    padding-top: 0rem;
+    position: fixed;
+    left: 0px;
+  }
+  .container-content {
+    margin-left: 17rem;
+    width: 100%;
+  }
+}
+body {
+  font-family: 'Rubik', sans-serif;
+  color: #868E96;
+  font-size: 1.2rem;
+  background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+}
+h1, h2, h3, h4, h5, h6 {
+  color: #343a40;
+}
+h1 {
+  font-size: 2.5rem;
+}
+a {
+  text-decoration: none;
+}
+.profile-pic {
+  border-radius: 50%;
+  border:0.4rem solid #EAE3EA;
+  width: 8rem;
+  height: 8rem;
+}
+.color-pink {
+  color: #F64C72;
+}
+.color-white {
+  color: #EAE3EA;
+}
+.inline-i-middle {
+  display: inline-block;
+}
+.inline-i-middle i {
+  vertical-align: middle;
+}
+.icon-inline {
+  list-style: none;
+  padding: 0;
+}
+.icon-inline li {
+  text-decoration: none;
+  background: #F64C72;
+  padding: .8rem;
+  border-radius: 50%;
+  display: inline;
+  margin-right: 1rem;
+}
+.icon-inline a {
+  color: #343a40;
+}
+.icon-inline i {
+  vertical-align: middle;
+  padding-bottom: .2rem;
+}
+.icon-inline li:hover a {
+  color: white;
+}
+
+
+
+

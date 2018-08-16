@@ -5,9 +5,9 @@ A simply secure sign-up/sign-in implementation for web app. You may consider thi
 This project demonstrates the secure web app by using 3 public web pages and 1 protected user profile page
 
 **Public pages**
-* /landing.html
-* /signup.html
-* /signin.html
+* /landing
+* /signup
+* /signin
 
 **Protected page**
 * /profile
