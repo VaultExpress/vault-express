@@ -20,9 +20,8 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You need to install MongoDB to run on your machine
-
-https://docs.mongodb.com/manual/administration/install-community/
+You need to install PostgreSQL to run on your machine
+https://www.postgresql.org/docs/manualsindex/
 
 ### Installing
 
