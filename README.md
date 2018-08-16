@@ -2,6 +2,8 @@
 
 A simply secure sign-up/sign-in implementation for web app. You may consider this as runnable guideline for your implementation.
 
+[LIVE DEMO](https://peaceful-peak-41153.herokuapp.com/)
+
 This project demonstrates the secure web app by using 3 public web pages and 1 protected user profile page
 
 **Public pages**
@@ -55,6 +57,7 @@ npm run deploy
 ## Built With
 
 * [Express.js](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
+* [Helmet](https://helmetjs.github.io/) - Helmet helps you secure your Express apps by setting various HTTP headers. It’s not a silver bullet, but it can help!
 
 ## Contributing
 
