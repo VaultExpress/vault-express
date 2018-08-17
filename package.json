@@ -1,7 +1,7 @@
 {
-  "name": "the-vault",
+  "name": "vault-express",
   "version": "0.0.1",
-  "description": "re-usable signup/signin stack",
+  "description": "A simply secure sign-up/sign-in implementation for web app",
   "private": true,
   "engines": {
     "node": "8.11.3"
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/VaultExpress/the-vault.git"
+    "url": "git+https://github.com/VaultExpress/vault-express.git"
   },
   "keywords": [],
   "author": "junyada100",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/VaultExpress/the-vault/issues"
+    "url": "https://github.com/VaultExpress/vault-express/issues"
   },
-  "homepage": "https://github.com/VaultExpress/the-vault#readme",
+  "homepage": "https://github.com/VaultExpress/vault-express#readme",
   "dependencies": {
     "dotenv": "^6.0.0",
     "express": "^4.16.3",

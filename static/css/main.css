@@ -69,9 +69,48 @@ input:focus::-webkit-input-placeholder { color:transparent; }
 input:focus:-moz-placeholder { color:transparent; }
 input:focus::-moz-placeholder { color:transparent; }
 input:focus:-ms-input-placeholder { color:transparent; }
+
 input::placeholder {
   font-size: 1rem;
   color: gray;
+}
+
+.checkbox {
+  display: none;
+}
+.checkbox-label {
+  margin: 0;
+  display: block;
+  position: relative;
+  padding-left: 26px;
+  cursor: pointer;
+}
+.checkbox-label::before {
+  /*
+  content: "\f00c";
+  font-family: FontAwesome;
+  */
+  content: "✔️";
+  font-size: 0.8rem;
+  color: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  border-radius: 2px;
+  background: #e6e6e6;
+  left: 0;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+}
+.checkbox:checked + .checkbox-label::before {
+  color: #c87ef0;
 }
 .button-wrap {
   width: 100%;
