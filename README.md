@@ -1,4 +1,4 @@
-# the-vault project - ALPHA stage
+# vault-express project - ALPHA stage
 
 A simply secure sign-up/sign-in implementation for web app. You may consider this as runnable guideline for your implementation.
 
@@ -40,9 +40,9 @@ https://www.postgresql.org/docs/manualsindex/
 ### Installing
 
 ```
-git clone https://github.com/VaultExpress/the-vault.git
+git clone https://github.com/VaultExpress/vault-express.git
 
-cd the-vault
+cd vault-express
 
 npm init
 ```
@@ -79,13 +79,13 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 ## Versioning
 
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](
-https://github.com/VaultExpress/the-vault/tags).
+https://github.com/VaultExpress/vault-express/tags).
 
 ## Authors
 
 * **Jun Yada** - *Initial work* - [junyada100](https://github.com/junyada100)
 
-See also the list of [contributors](https://github.com/VaultExpress/the-vault/graphs/contributors) who participated in this project.
+See also the list of [contributors](https://github.com/VaultExpress/vault-express/graphs/contributors) who participated in this project.
 
 ## License
 
