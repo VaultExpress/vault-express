@@ -4,11 +4,13 @@
   "description": "A simply secure sign-up/sign-in implementation for web app",
   "private": true,
   "engines": {
-    "node": "8.11.3"
+    "node": "8.11.3",
+    "npm": "6.4.0"
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "deploy": "git push heroku master"
   },
   "repository": {
     "type": "git",
@@ -28,6 +30,7 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
+    "jsonfile": "^4.0.0",
     "nodemon": "^1.18.3"
   }
 }

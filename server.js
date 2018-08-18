@@ -5,8 +5,14 @@ const favicon = require('serve-favicon');
 const path = require('path');
 const app = express();
 
+const db = require('./db/db-json');
+//const db = require('./db/db-postgres');
+//const db = require('./db/db-mongo');
+
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
+
+db.init();
 
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'static')));
@@ -22,6 +28,11 @@ app.get("/signup", (req, res)=>{
 
 app.get("/signin", (req, res)=>{
   res.sendFile(path.join(__dirname+'/pages/signin.html'));
+});
+
+app.get("/test", (req, res)=>{
+  //var a = db.test();
+  res.json(db.json);
 });
 var listener = app.listen(PORT, HOST,function() {
   console.log('Your app is listening on port ' + listener.address().port);

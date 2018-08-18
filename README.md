@@ -14,7 +14,7 @@ This project demonstrates the secure web app by using 3 public web pages and 1 p
 **Protected page**
 * /profile
 
-## Why create this project?
+## Why?
 After I went through for many programming tutorials, I thought It was time to create some web app myself.
 
 The first thing in my head was "What should I create?" (the big question in my life) and then the next question was "Which framework should I use for frontend, backend and database?" and then again and again many questions pop into.
@@ -33,9 +33,10 @@ These instructions will get you a copy of the project up and running on your loc
 
 ### Prerequisites
 
-You need to install PostgreSQL to run on your machine
+If you just want to check this project out, you don't need anything special; just [Git](https://git-scm.com/), [npm](https://www.npmjs.com/) and [Node.js](https://nodejs.org).
 
-https://www.postgresql.org/docs/manualsindex/
+
+Anyway, if you want to see how we implement DB-tier, You gonna need to install PostgreSQL or MongoDB. Check [Deployment](#deployment) for more info
 
 ### Installing
 
@@ -63,9 +64,7 @@ npm test
 
 ## Deployment
 
-```
-npm run deploy
-```
+Coming soon...
 
 ## Built With
 
