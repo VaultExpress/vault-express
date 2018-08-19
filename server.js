@@ -31,8 +31,8 @@ app.get("/signin", (req, res)=>{
 });
 
 app.get("/test", (req, res)=>{
-  //var a = db.test();
-  res.json(db.json);
+  var a = db.findByName("tester2");
+  res.json(a);
 });
 var listener = app.listen(PORT, HOST,function() {
   console.log('Your app is listening on port ' + listener.address().port);
