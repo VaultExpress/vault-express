@@ -45,7 +45,7 @@ git clone https://github.com/VaultExpress/vault-express.git
 
 cd vault-express
 
-npm init
+npm install
 ```
 
 For environment vairables we use .env file which you can see what we use in .env-example

@@ -9,7 +9,7 @@
   },
   "scripts": {
     "start": "nodemon server.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha",
     "deploy": "git push heroku master"
   },
   "repository": {
@@ -30,7 +30,9 @@
     "serve-favicon": "^2.5.0"
   },
   "devDependencies": {
+    "chai": "^4.1.2",
     "jsonfile": "^4.0.0",
+    "mocha": "^5.2.0",
     "nodemon": "^1.18.3"
   }
 }
