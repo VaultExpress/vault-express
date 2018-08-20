@@ -1,0 +1,28 @@
+[
+  {
+    "user_id": 1001,
+    "username": "demo",
+    "password": "xxxxxxx",
+    "email": "demo@example.com",
+    "display_name": "I am Demo",
+    "profile_image": "",
+    "info1": "",
+    "info2": "",
+    "info3": "",
+    "info4": "",
+    "info5": ""
+  },
+  {
+    "user_id": 1002,
+    "username": "demo2",
+    "password": "xxxxxxx",
+    "email": "demo2@example.com",
+    "display_name": "I am number 2",
+    "profile_image": "",
+    "info1": "",
+    "info2": "",
+    "info3": "",
+    "info4": "",
+    "info5": ""
+  }
+]

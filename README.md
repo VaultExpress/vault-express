@@ -48,7 +48,11 @@ cd vault-express
 npm install
 ```
 
-For environment vairables we use .env file which you can see what we use in .env-example
+We use .env file for setting environment variables which you can see what we use in .env-example
+For quick start you may
+```
+cp .env-example .env
+```
 
 and then you can start the server by
 

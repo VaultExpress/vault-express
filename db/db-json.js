@@ -1,61 +1,48 @@
-const jsonfile = require('jsonfile');
+const low = require('lowdb');
+const FileSync = require('lowdb/adapters/FileSync');
 const file = process.env.DB_JSON;
+
+const adapter = new FileSync(file);
+const dblow = low(adapter);
+
+const jsonfile = require('jsonfile');
 
 let db = {};
 
-db.json = {};
-
-db.init = () => {
-  jsonfile.readFile(file, function(err, obj) {
-    db.json = obj;
-    return err;
-  });
-};
-
-db.findByName = (name) => {
-  let res = {};
-  for(let i=0, len=db.json.length; i < len; i++) {
-    if (db.json[i]["username"] == name) {
-      res = db.json[i];
-      break;
-    }
+//Create user by passing user object, duplicate check, if dup return null
+db.createUser = (user) => {
+  let res = db.findByName(user.username);
+  if (res) {
+    return null;
+  } else {
+    return dblow.get('users').push(user).write();
   }
-  return res;
 };
 
-db.seed = () => {
-  var users = [
-    {
-      user_id: 1001,
-      username: "tester1",
-      password: "xxxxxxx",
-      email: "tester1@example.com",
-      display_name: "Tester 1",
-      profile_image: "",
-      info1: "",
-      info2: "",
-      info3: "",
-      info4: "",
-      info5: ""
-    },
-    {
-      user_id: 1002,
-      username: "tester2",
-      password: "xxxxxxx",
-      email: "tester2@example.com",
-      display_name: "Tester 2",
-      profile_image: "",
-      info1: "",
-      info2: "",
-      info3: "",
-      info4: "",
-      info5: ""
-    }
-  ];
+//Find user by user_id, if found return an object
+db.findById = (id) => {
+  return dblow.get('users').find({ user_id: id }).value();
+};
 
-  jsonfile.writeFile(file, users, function(err) {
-    return err;
-  });
+//Find user by username, if found return an object
+db.findByName = (name) => {
+  return dblow.get('users').find({ username: name }).value();
+};
+
+//Update user by passing user object
+db.update = (user) => {
+  return dblow.get('users').find({user_id: user.user_id}).assign(user).write();
+};
+
+//Remove user by user_id
+db.remove = (id) => {
+  return dblow.get('users').remove({ user_id: id }).write();
+};
+
+//Seed data to database by using data in seed.json
+db.seed = () => {
+  let users = jsonfile.readFileSync('seed.json');
+  dblow.set('users', users).write();
 };
 
 module.exports = db;
