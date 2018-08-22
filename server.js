@@ -28,9 +28,8 @@ app.get("/signin", (req, res)=>{
   res.sendFile(path.join(__dirname+'/pages/signin.html'));
 });
 
-app.get("/test", (req, res)=>{
-  var a = db.findByName("tester2");
-  res.json(a);
+app.get("/profile", (req, res)=>{
+  res.sendFile(path.join(__dirname+'/pages/profile.html'));
 });
 var listener = app.listen(PORT, HOST,function() {
   console.log('Your app is listening on port ' + listener.address().port);
