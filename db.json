@@ -3,22 +3,9 @@
     {
       "user_id": 1001,
       "username": "demo",
-      "password": "xxxxxxx",
+      "password": "$2b$12$9YXAntESNVX3SbOVYEnnc.WeN9Oy/XwwJ4aK.fGW5Be5dCh/M63Qe",
       "email": "demo@example.com",
       "display_name": "I am Demo",
-      "profile_image": "",
-      "info1": "",
-      "info2": "",
-      "info3": "",
-      "info4": "",
-      "info5": ""
-    },
-    {
-      "user_id": 1002,
-      "username": "demo2",
-      "password": "xxxxxxx",
-      "email": "demo2@example.com",
-      "display_name": "I am number 2",
       "profile_image": "",
       "info1": "",
       "info2": "",
