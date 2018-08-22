@@ -42,7 +42,7 @@ db.remove = (id) => {
 //Seed data to database by using data in seed.json
 db.seed = () => {
   let users = jsonfile.readFileSync('seed.json');
-  dblow.set('users', users).write();
+  return dblow.set('users', users).write();
 };
 
 module.exports = db;
