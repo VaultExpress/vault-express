@@ -1,15 +1,7 @@
 var assert = require('assert');
-describe('This is just for testing the test ;p', function() {
-    describe('#indexOf()', function() {
-          it('should return -1 when the value is not present', function() {
-                  assert.equal([1,2,3].indexOf(4), -1);
-                });
-        });
-});
 
-
-describe("Encryption Function", 
-    uuid => describe("uuidv5 encryption", 
+describe("Encryption Function",
+    uuid => describe("uuidv5 encryption",
         test_uuid => {
             it("should return the corresponding value for uuidv5 with sitename as a namespace", function(){
                 const uuidv5 = require('uuid/v5')

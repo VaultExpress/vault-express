@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { expect } = require('chai');
 const db = require('../db/db-json');
 const seed = require('../seed.json');
