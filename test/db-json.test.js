@@ -1,9 +1,20 @@
 require('dotenv').config();
 const { expect } = require('chai');
+
+let env = process.env;
+process.env = { DB_JSON: "dbtest.json" };
+
 const db = require('../db/db-json');
 const seed = require('../seed.json');
+const fs = require('fs');
 
 describe('DB Json', () => {
+
+  after(function() {
+    fs.unlinkSync(process.env.DB_JSON);
+    process.env = env;
+  });
+
   // smoke tests
   describe('smoke tests', () => {
     it('should exist the `createUser` method', () => {
@@ -34,6 +45,14 @@ describe('DB Json', () => {
     it('should exist the `seed` method', () => {
       expect(db.seed).to.exist;
       expect(db.seed).to.be.a('function');
+    });
+  });
+
+  // seed Method
+  describe('seed', () => {
+    it('should seed the actual db with sample json file', () => {
+      console.log(process.env);
+      expect(db.seed().users).to.deep.equal(seed);
     });
   });
 
@@ -77,10 +96,4 @@ describe('DB Json', () => {
     });
   });
 
-  // seed Method
-  describe('seed', () => {
-    it('should seed the actual db with sample json file', () => {
-      expect(db.seed().users).to.deep.equal(seed);
-    });
-  });
 });
