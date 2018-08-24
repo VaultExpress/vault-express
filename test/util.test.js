@@ -32,6 +32,15 @@ describe("./util/index.js - Utility functions", () => {
       expect(destBuffer).is.equalBytes(srcBuffer);
     });
   });
+
+  describe("User ID generator function", () => {
+    let username = "demo";
+    it("should generate an id", () => {
+      let id = util.genUserId(username);
+      expect(id).is.not.empty;
+      expect(id.length).equal(36);
+    });
+  });
 });
 
 

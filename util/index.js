@@ -1,4 +1,6 @@
+const cfg = require('../config');
 const bcrypt = require('bcrypt');
+const uuid = require('./util.uuidv5');
 
 const saltRounds = 12;
 
@@ -21,5 +23,10 @@ util.encodeFile = (buf) => {
 util.decodeFile = (encoded_txt) => {
   return Buffer.from(encoded_txt, 'base64');
 };
+
+//pass username, return uuid
+util.genUserId = (username) => {
+  return uuid.uuidv5(username);
+}
 
 module.exports = util;
