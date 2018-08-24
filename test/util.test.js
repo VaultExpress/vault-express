@@ -13,7 +13,7 @@ describe("./util/index.js - Utility functions", () => {
       expect(hash.length).to.be.equal(60);
     });
 
-    it("should compare plain password with hash", () => {
+    it("should be able to compare plain password with hash", () => {
       expect(util.comparePassword(txt, hash)).to.be.true;
       expect(util.comparePassword("password", hash)).to.be.false;
     });

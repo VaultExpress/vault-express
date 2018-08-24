@@ -27,6 +27,17 @@ I did search for this topic and found scattered information spreads all over int
 
 Then I create this project with hope that opensource community will help me out, As always. and also to help people with the same situation as me to solve this issue.
 
+## Features
+- A secure Sign-up/Sign-in implementation
+- Validate input on Client side
+- Validate input on Server side
+- Detect && Protect abnormal usage ???
+- Security logging
+- Detect/Protect DoS attack ???
+- Protect Cross-site Scripting (XSS)
+- Protect SQL injection
+- EU's General Data Protection Regulation Compliance ??? (trying to achieve)
+
 ## Getting Started
 
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
