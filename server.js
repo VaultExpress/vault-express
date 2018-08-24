@@ -1,4 +1,5 @@
 require('dotenv').config();
+const cfg = require('./config');
 const express = require('express');
 const helmet = require('helmet');
 const favicon = require('serve-favicon');
