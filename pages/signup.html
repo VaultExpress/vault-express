@@ -7,41 +7,51 @@
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <title>vault-express</title>
+    <!--jQuery to hide and show elements-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
   </head>
   <body>
     <noscript>
       You need to enable JavaScript to run this app.
     </noscript>
     <div class="container">
-      <div class="box">
+      <div class="box slide">
         <h1>Sign Up</h1>
-        <form class="form">
+
+        <form class="form" action="" method="POST">
+        
         <div class="input-wrap validate-input" data-validate="Email is required">
           <span class="input-label">Email</span>
-          <input class="input" type="text" name="email" placeholder="Type your email">
+          <input class="input" type="email" name="email" placeholder="Type your email" required>
           <span class="focus-input100"></span>
         </div>
+        
         <div class="input-wrap validate-input" data-validate="Username is required">
           <span class="input-label">Username</span>
-          <input class="input" type="text" name="username" placeholder="Type your username">
+          <input class="input" type="text" name="username" placeholder="Type your username" required>
           <span class="focus-input100"></span>
         </div>
+        
         <div class="input-wrap validate-input" data-validate = "Password is required">
           <span class="input-label">Password</span>
-          <input class="input" type="password" name="password" placeholder="Type your password">
+          <input class="input" type="password" name="password" placeholder="Type your password" required minlength="8" maxlength="32">
           <span class="focus-input100"></span>
         </div>
-        <div class="input-wrap validate-input" data-validate = "Password is required">
+        
+        <div id="password_repeat" class="input-wrap validate-input hide" data-validate = "Password is required">
           <span class="input-label">Repeat Password</span>
-          <input class="input" type="password" name="repeat_password" placeholder="Repeat your password">
+          <input class="input" type="password" name="repeat_password" placeholder="Repeat your password" required minlength="8" maxlength="32">
           <span class="focus-input100"></span>
         </div>
+        
         <div class="checkbox-wrap">
-          <input class="checkbox" id="agree" type="checkbox" name="agree">
+          <input class="checkbox" id="agree" type="checkbox" name="agree" required>
           <label class="checkbox-label" for="agree">
           <span>I agree to the <a href="#">Terms of Service</a></span>
           </label>
         </div>
+        
         <div class="button-wrap">
           <button class="button">Sign Up</button>
           <a href="/signin" style="font-size:1rem;" >Sign In ➡️</a>
@@ -51,5 +61,28 @@
 
       </div>
     </div>
+
+    <script>
+
+      $(document).ready(function() {
+        // To Slide Down main container
+        $(".slide").hide();
+        $("div.slide").slideDown(1500);
+
+        // To Slide Down repeat password
+        $(".hide").hide();
+        $("input[name='password']").focus(function() {
+          $("#password_repeat").slideDown();
+        });
+
+        // To give
+        $("input").on("focus",function() {
+          $(this).parent().removeClass('input-blur').addClass('input-focus');
+        });
+        $("input").on("blur", function() {
+          $(this).parent().removeClass('input-focus').addClass('input-blur');
+        });
+      });
+    </script>
   </body>
 </html>

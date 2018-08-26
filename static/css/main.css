@@ -1,20 +1,25 @@
+
 body {
   font-family: 'Rubik', sans-serif;
   color: #868E96;
   font-size: 1.2rem;
-  background: linear-gradient(90deg, #FC466B 0%, #3F5EFB 100%);
+  background: linear-gradient(150deg, #FC466B 5%, #3F5EFB 100%) fixed;
 }
+
 h1, h2, h3, h4, h5, h6 {
   color: #343a40;
 }
+
 h1 {
   font-size: 2.5rem;
 }
+
 a {
   color: #3F5EFB;
   text-decoration: none;
   transition: all 0.8s;
 }
+
 a:hover {
   color: #FC466B;
 }
@@ -22,16 +27,17 @@ a:hover {
 .container {
   padding: 3rem 0;
   display: flex;
-  flex-direction: column;
-  align-items: center;
+  flex-direction: row;
+  justify-content: space-around;
 }
+
 .box {
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   text-align: center;
-  background: #fff;
+  background: rgba(255,255,255,0.8);
   width: 440px;
   border-radius: 15px;
   padding-bottom: 3rem;
@@ -46,6 +52,14 @@ a:hover {
   border-bottom: 2px solid #868E96;
   margin-bottom: 2rem;
 }
+/*  To give highlight input region */
+.input-focus {
+	border-bottom: 3px solid #207cd8; /* color to be changed */
+}
+.input-blur {
+	border-bottom: 2px solid #868E96;
+}
+
 .input-label {
   line-height: 1.2;
   padding-left: 2px;
@@ -100,7 +114,7 @@ input::placeholder {
   width: 16px;
   height: 16px;
   border-radius: 2px;
-  background: #e6e6e6;
+  background: rgba(164,81,174,0.8);
   left: 0;
   top: 50%;
   -webkit-transform: translateY(-50%);
@@ -110,7 +124,7 @@ input::placeholder {
   transform: translateY(-50%);
 }
 .checkbox:checked + .checkbox-label::before {
-  color: #c87ef0;
+  color: rgb(255,255,255,0.8);
 }
 .button-wrap {
   width: 100%;
@@ -142,14 +156,19 @@ input::placeholder {
   padding-top: 5rem;
 }
 
-/* css for landing page */
+
+
+/*
+CSS for Landing page
+*/
+
 .landing-title {
   display: flex;
   flex-direction: row;
   align-items: center;
 }
 .landing-img {
-  padding-right: 10px;
+	padding-right: 10px;
 }
 
 @media (min-width:768px) {
@@ -165,12 +184,7 @@ input::placeholder {
     width: 100%;
   }
 }
-.profile-pic {
-  border-radius: 50%;
-  border:0.4rem solid #EAE3EA;
-  width: 8rem;
-  height: 8rem;
-}
+
 .color-pink {
   color: #F64C72;
 }
@@ -207,5 +221,25 @@ input::placeholder {
 }
 
 
+/*
+CSS for Profile Page
+*/
 
+.profile-pic {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+  background: rgba(255,255,255,0.8);
+  width: 200px;
+  height: 200px;
+  border-radius: 15px;
+}
 
+.data-box {
+	justify-content: center;
+	align-items: center;
+	text-align: center;
+  background: rgba(255,255,255,0.8);
+  width: 600px;
+  border-radius: 15px;
+}
