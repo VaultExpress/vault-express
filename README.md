@@ -96,9 +96,14 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduc
 We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](
 https://github.com/VaultExpress/vault-express/tags).
 
-## Authors
+## Contributors
 
-* **Jun Yada** - *Initial work* - [junyada100](https://github.com/junyada100)
+<p>
+<a href="https://github.com/junyada100"><img width="80" src="https://avatars.githubusercontent.com/junyada100" /></a>
+<a href="https://github.com/psyperl"><img width="80" src="https://avatars.githubusercontent.com/psyperl" /></a>
+<a href="https://github.com/thismarcoantonio"><img width="80" src="https://avatars.githubusercontent.com/thismarcoantonio" /></a>
+<a href="https://github.com/ThePiyushAggarwal"><img width="80" src="https://avatars.githubusercontent.com/ThePiyushAggarwal" /></a>
+</p>
 
 See also the list of [contributors](https://github.com/VaultExpress/vault-express/graphs/contributors) who participated in this project.
 
