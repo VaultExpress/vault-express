@@ -15,43 +15,9 @@ describe('DB Json', () => {
     process.env = env;
   });
 
-  // smoke tests
-  describe('smoke tests', () => {
-    it('should exist the `createUser` method', () => {
-      expect(db.createUser).to.exist;
-      expect(db.createUser).to.be.a('function');
-    });
-
-    it('should exist the `findById` method', () => {
-      expect(db.findById).to.exist;
-      expect(db.findById).to.be.a('function');
-    });
-
-    it('should exist the `findByName` method', () => {
-      expect(db.findByName).to.exist;
-      expect(db.findByName).to.be.a('function');
-    });
-
-    it('should exist the `update` method', () => {
-      expect(db.update).to.exist;
-      expect(db.update).to.be.a('function');
-    });
-
-    it('should exist the `remove` method', () => {
-      expect(db.remove).to.exist;
-      expect(db.remove).to.be.a('function');
-    });
-
-    it('should exist the `seed` method', () => {
-      expect(db.seed).to.exist;
-      expect(db.seed).to.be.a('function');
-    });
-  });
-
   // seed Method
   describe('seed', () => {
     it('should seed the actual db with sample json file', () => {
-      console.log(process.env);
       expect(db.seed().users).to.deep.equal(seed);
     });
   });

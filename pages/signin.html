@@ -17,7 +17,7 @@
     <div class="container">
       <div class="box slide">
         <h1>Sign In</h1>
-        <form class="form" action="" method="POST" >
+        <form class="form" action="/auth/signin" method="POST" >
 
         <!-- The user should be allowed to write email instead of username-->
         <div class="input-wrap validate-input" data-validate="Username is required">
@@ -25,13 +25,13 @@
           <input class="input" type="text" name="username" placeholder="Type your username" required>
           <span class="focus-input100"></span>
         </div>
-        
+
         <div class="input-wrap validate-input" data-validate = "Password is required">
           <span class="input-label">Password</span>
-          <input class="input" type="password" name="password" placeholder="Type your password" required minlength="8" maxlength="32">
+          <input class="input" type="password" name="password" placeholder="Type your password" required>
           <span class="focus-input100"></span>
         </div>
-        
+
         <div class="checkbox-wrap">
           <input class="checkbox" type="checkbox" id="remember_me" name="remember_me">
           <label class="checkbox-label" for="remember_me">
@@ -40,7 +40,7 @@
         </div>
 
         <div class="button-wrap">
-          <button class="button">Sign In</button>
+          <button class="button" type="submit">Sign In</button>
           <a href="/signin" style="font-size:1rem;" >Forgot password?</a>
         </div>
 

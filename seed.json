@@ -1,11 +1,35 @@
 [
   {
-    "user_id": "a811ee0d-5553-5b3e-b13c-41922315f230",
+    "id": "a811ee0d-5553-5b3e-b13c-41922315f230",
     "username": "demo",
-    "password": "$2b$12$9YXAntESNVX3SbOVYEnnc.WeN9Oy/XwwJ4aK.fGW5Be5dCh/M63Qe",
-    "email": "demo@example.com",
-    "display_name": "I am Demo",
-    "profile_image": "",
+    "password": "$2b$12$NryJ1wpkUZX6LjQvfjaLCOMMUFUvBiRsS6hy0NV8/0Y8P68Z1ED9u",
+    "provider": "local",
+    "email": [
+      {
+        "value": "demo@example.com",
+        "type": "work"
+      },
+      {
+        "value": "demo@gmail.com",
+        "type": "personal"
+      }
+    ],
+    "displayName": "I am Demo",
+    "name": {
+      "givenName": "Demo",
+      "middleName": "Joe",
+      "familyName": "Trump"
+    },
+    "photos": [
+      {
+        "value": "",
+        "type": "profile"
+      },
+      {
+        "value": "",
+        "type": "background"
+      }
+    ],
     "info1": "",
     "info2": "",
     "info3": "",

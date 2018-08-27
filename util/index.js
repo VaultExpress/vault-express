@@ -2,12 +2,10 @@ const cfg = require('../config');
 const bcrypt = require('bcrypt');
 const uuid = require('./util.uuidv5');
 
-const saltRounds = 12;
-
 let util = {};
 
 util.encrypt = (plain_password) => {
-  return bcrypt.hashSync(plain_password, saltRounds);
+  return bcrypt.hashSync(plain_password, cfg.password_hash_salt_rounds);
 };
 
 util.comparePassword = (plain_password, hash_password) => {

@@ -84,7 +84,8 @@ Coming soon...
 ## Built With
 
 * [Express.js](https://expressjs.com/) - Fast, unopinionated, minimalist web framework for Node.js
-* [Helmet](https://helmetjs.github.io/) - Helmet helps you secure your Express apps by setting various HTTP headers. It’s not a silver bullet, but it can help!
+* [Helmet](https://helmetjs.github.io/) - Helmet helps you secure your Express apps by setting various HTTP headers
+* [Passport](http://www.passportjs.org/) - Simple, unobtrusive authentication for Node.js
 
 ## Contributing
 
