@@ -4,6 +4,8 @@ A simply secure sign-up/sign-in implementation for web app. You may consider thi
 
 [LIVE DEMO](https://peaceful-peak-41153.herokuapp.com/)
 
+[Gitter Chat](https://gitter.im/VaultExpress/Lobby)
+
 This project demonstrates the secure web app by using 3 public web pages and 1 protected user profile page
 
 **Public pages**
@@ -25,7 +27,7 @@ Sound easy at first for newbie as me, just create a page for sign-in. BUT the tr
 
 I did search for this topic and found scattered information spreads all over internet. Those infomation will give me wrinkles, I don't want to be an expert on this topic, I just want to create an app with acceptable secure.
 
-Then I create this project with hope that opensource community will help me out, As always. and also to help people with the same situation as me to solve this issue.
+Then I create this project with hope that opensource community will help me out, as always. and also to help people with the same situation as me to solve this issue.
 
 ## Features
 - A secure Sign-up/Sign-in implementation
