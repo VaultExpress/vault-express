@@ -8,6 +8,7 @@ module.exports = (passport, db) => {
   };
 
   const authen = (username, password, done) => {
+console.log("auth/local.js=>authen():", username, password);
     try {
       let user = db.findByName(username);
       if (user) {

@@ -17,18 +17,18 @@
     <div class="container">
       <div class="box slide">
         <h1>Sign In</h1>
-        <form class="form" action="/auth/signin" method="POST" >
+        <form class="form">
 
         <!-- The user should be allowed to write email instead of username-->
         <div class="input-wrap validate-input" data-validate="Username is required">
           <span class="input-label">Username</span>
-          <input class="input" type="text" name="username" placeholder="Type your username" required>
+          <input class="input" type="text" id="veuser" name="veuser" placeholder="Type your username" required>
           <span class="focus-input100"></span>
         </div>
 
         <div class="input-wrap validate-input" data-validate = "Password is required">
           <span class="input-label">Password</span>
-          <input class="input" type="password" name="password" placeholder="Type your password" required>
+          <input class="input" type="password" id="vepass" name="vepass" placeholder="Type your password" required>
           <span class="focus-input100"></span>
         </div>
 
@@ -40,7 +40,7 @@
         </div>
 
         <div class="button-wrap">
-          <button class="button" type="submit">Sign In</button>
+          <button class="button" id="buttonSignIn">Sign In</button>
           <a href="/signin" style="font-size:1rem;" >Forgot password?</a>
         </div>
 
@@ -55,28 +55,7 @@
         </div>
       </div>
     </div>
-
-    <script>
-
-      $(document).ready(function() {
-        // To Slide Down main container
-        $(".slide").hide();
-        $(".slide").slideDown(1500);
-
-        // To Slide Down repeat password
-        $(".hide").hide();
-        $("input[name='password']").focus(function() {
-          $("#password_repeat").slideDown();
-        });
-
-        // To give
-        $("input").on("focus",function() {
-          $(this).parent().removeClass('input-blur').addClass('input-focus');
-        });
-        $("input").on("blur", function() {
-          $(this).parent().removeClass('input-focus').addClass('input-blur');
-        });
-      });
-    </script>
+    <script src="js/func.js" nonce="10001"></script>
+    <script src="js/signin.js" nonce="10002"></script>
   </body>
 </html>
