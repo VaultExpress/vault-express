@@ -15,7 +15,7 @@
       You need to enable JavaScript to run this app.
     </noscript>
     <div class="container">
-      <div class="box slide">
+      <div class="box">
         <div class="landing-title">
           <img class="landing-img" src="img/vault.png" height="50" width="50" />
           <h1>vault-express</h1>
@@ -28,27 +28,6 @@
       </div>
     </div>
 
-    <script>
-
-      $(document).ready(function() {
-        // To Slide Down main container
-        $(".slide").hide();
-        $(".slide").slideDown(1500);
-
-        // To Slide Down repeat password
-        $(".hide").hide();
-        $("input[name='password']").focus(function() {
-          $("#password_repeat").slideDown();
-        });
-
-        // To give
-        $("input").on("focus",function() {
-          $(this).parent().removeClass('input-blur').addClass('input-focus');
-        });
-        $("input").on("blur", function() {
-          $(this).parent().removeClass('input-focus').addClass('input-blur');
-        });
-      });
-    </script>
+    
   </body>
 </html>

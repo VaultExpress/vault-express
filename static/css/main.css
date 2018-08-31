@@ -28,6 +28,7 @@ a:hover {
   padding: 3rem 0;
   display: flex;
   flex-direction: row;
+  align-items: center;
   justify-content: space-around;
 }
 
@@ -225,21 +226,69 @@ CSS for Landing page
 CSS for Profile Page
 */
 
-.profile-pic {
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+.pic-wrap {
+  display: flex;
+  flex-direction: column;
+  justify-content: ;
+  align-items: ;
+  text-align: center;
   background: rgba(255,255,255,0.8);
-  width: 200px;
-  height: 200px;
+  border: 10px solid transparent;
   border-radius: 15px;
 }
 
+.profile-pic {
+  width: 200px;
+  height: 200px;
+  margin-bottom: 10px;
+  padding: 10px;
+}
+
 .data-box {
-	justify-content: center;
-	align-items: center;
-	text-align: center;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
   background: rgba(255,255,255,0.8);
   width: 600px;
   border-radius: 15px;
+  padding-bottom: 35px;
+}
+
+.data-box .text-align-center {
+  text-align: center;
+  align-content: center;
+}
+
+
+.info-header {
+  text-align: left;
+  padding-left: 15px;
+}
+
+data {
+  display: block;
+  padding-left: 20px;
+  padding-bottom: 10px;
+  text-align: left;
+  color: #343a40;
+  font-size: 30px;
+  line-height: 2;
+}
+
+@media (max-width: 840px) {
+  
+  .pic-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    box-sizing: border-box;
+    justify-content: center;
+    margin-bottom: 40px;
+  }
+
+  .data-box {
+    box-sizing: border-box;
+    width: 100%;
+  }
 }
