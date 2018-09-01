@@ -105,6 +105,7 @@ https://github.com/VaultExpress/vault-express/tags).
 <a href="https://github.com/psyperl"><img width="80" src="https://avatars.githubusercontent.com/psyperl" /></a>
 <a href="https://github.com/thismarcoantonio"><img width="80" src="https://avatars.githubusercontent.com/thismarcoantonio" /></a>
 <a href="https://github.com/ThePiyushAggarwal"><img width="80" src="https://avatars.githubusercontent.com/ThePiyushAggarwal" /></a>
+<a href="https://github.com/willybeans"><img width="80" src="https://avatars.githubusercontent.com/willybeans" /></a>
 </p>
 
 See also the list of [contributors](https://github.com/VaultExpress/vault-express/graphs/contributors) who participated in this project.
