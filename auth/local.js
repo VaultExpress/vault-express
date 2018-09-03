@@ -1,5 +1,6 @@
 const LocalStrategy  = require('passport-local').Strategy;
 const util = require('../util');
+const cfg = require('../config');
 
 module.exports = (passport, db) => {
   const options = {
@@ -8,21 +9,20 @@ module.exports = (passport, db) => {
   };
 
   const authen = (username, password, done) => {
-console.log("auth/local.js=>authen():", username, password);
     try {
       let user = db.findByName(username);
       if (user) {
         let match = util.comparePassword(password, user.password);
         if (match) {
-          done(null, user);
+          return done(null, user);
         } else {
-          done('Invalid username/password', false);
+          return done(null, false , { message: cfg.msg_auth_invalid_password });
         }
       } else {
-        done('No username found', false);
+        return done(null, false, { message: cfg.msg_auth_invalid_username });
       };
     } catch(err) {
-      done(err, false);
+      return done(err, false, { message: cfg.msg_auth_found_error });
     };
   };
 

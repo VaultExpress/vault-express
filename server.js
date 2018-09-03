@@ -9,7 +9,6 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 
 const db = require('./db');
-const auth = require('./auth')(db);
 const api = require('./api')(db);
 
 const PORT = process.env.PORT || 3000;
@@ -27,7 +26,7 @@ app.use(session({
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.use('/auth', auth);
+app.use('/auth', require('./auth')(db));
 
 app.get("/", (req, res)=>{
   res.sendFile(path.join(__dirname+'/pages/landing.html'));
