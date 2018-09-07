@@ -4,7 +4,7 @@ const router = express.Router();
 module.exports = function(db) {
 
   router.get('/profile', (req, res) => {
-    res.send('profile.....');
+    res.render('profile', { username: 'test' });
   });
 
   return router;

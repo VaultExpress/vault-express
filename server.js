@@ -9,7 +9,7 @@ const session = require("express-session");
 const bodyParser = require("body-parser");
 
 const db = require('./db');
-const api = require('./api')(db);
+const secure = require('./secure')(db);
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -17,6 +17,9 @@ const HOST = process.env.HOST || '0.0.0.0';
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
+
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
 
 app.use(session({
   secret: cfg.session_secret,
@@ -27,23 +30,18 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use('/auth', require('./auth')(db));
+app.use('/secure', secure);
 
 app.get("/", (req, res)=>{
-  res.sendFile(path.join(__dirname+'/pages/landing.html'));
+  res.render('landing');
 });
 
 app.get("/signup", (req, res)=>{
-  res.sendFile(path.join(__dirname+'/pages/signup.html'));
+  res.render('signup');
 });
 
 app.get("/signin", (req, res)=>{
-  res.sendFile(path.join(__dirname+'/pages/signin.html'));
-});
-
-app.use("/api", api);
-
-app.get("/profile", (req, res)=>{
-  res.sendFile(path.join(__dirname+'/pages/profile.html'));
+  res.render('signin');
 });
 
 app.use((req, res, next) => {
@@ -53,4 +51,3 @@ app.use((req, res, next) => {
 var listener = app.listen(PORT, HOST,function() {
   console.log('Your app is listening on port ' + listener.address().port);
 });
-

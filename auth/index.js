@@ -39,7 +39,7 @@ module.exports = function(db) {
       if (!user) { return res.json({ error: info.message }); }
       req.login(user, function(err) {
         if (err) { return res.json({ error: cfg.msg_auth_passport_login_error }); }
-        return res.json({ result: "/profile" });
+        return res.json({ result: "success" });
       });
     })(req, res, next);
   });

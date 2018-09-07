@@ -10,7 +10,7 @@
       if (!err) {
         let res = JSON.parse(ret);
         if (!res.error) {
-          window.location.href = res.result;
+          window.location.href = "/secure/profile";
         } else {
           console.log(res.error);
         }

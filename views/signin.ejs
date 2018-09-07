@@ -1,0 +1,46 @@
+<% include head %>
+<div class="container">
+  <div class="box">
+    <h1>Sign In</h1>
+    <form class="form">
+
+    <!-- The user should be allowed to write email instead of username-->
+    <div class="input-wrap validate-input" data-validate="Username is required">
+      <span class="input-label">Username</span>
+      <input class="input" type="text" id="veuser" name="veuser" placeholder="Type your username" required>
+      <span class="focus-input100"></span>
+    </div>
+
+    <div class="input-wrap validate-input" data-validate = "Password is required">
+      <span class="input-label">Password</span>
+      <input class="input" type="password" id="vepass" name="vepass" placeholder="Type your password" required>
+      <span class="focus-input100"></span>
+    </div>
+
+    <div class="checkbox-wrap">
+      <input class="checkbox" type="checkbox" id="remember_me" name="remember_me">
+      <label class="checkbox-label" for="remember_me">
+      <span>Remember me</span>
+      </label>
+    </div>
+
+    <div class="button-wrap">
+      <button class="button" id="buttonSignIn">Sign In</button>
+      <a href="/signin" style="font-size:1rem;" >Forgot password?</a>
+    </div>
+
+
+    </form>
+
+
+
+
+    <div class="link">
+      <span>Not a member?</span> <a href="/signup">Sign up now</a>
+    </div>
+  </div>
+</div>
+
+<script src="/js/func.js" nonce="10001"></script>
+<script src="/js/signin.js" nonce="10002"></script>
+<% include foot %>

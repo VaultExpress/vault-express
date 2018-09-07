@@ -1,0 +1,50 @@
+<% include head %>
+<div class="container">
+  <div class="box">
+    <h1>Sign Up</h1>
+
+    <form class="form" action="" method="POST">
+
+    <div class="input-wrap validate-input" data-validate="Email is required">
+      <span class="input-label">Email</span>
+      <input class="input" type="email" name="email" placeholder="Type your email" required>
+      <span class="focus-input100"></span>
+    </div>
+
+    <div class="input-wrap validate-input" data-validate="Username is required">
+      <span class="input-label">Username</span>
+      <input class="input" type="text" name="username" placeholder="Type your username" required>
+      <span class="focus-input100"></span>
+    </div>
+
+    <div class="input-wrap validate-input" data-validate = "Password is required">
+      <span class="input-label">Password</span>
+      <input class="input" type="password" name="password" placeholder="Type your password" required minlength="8" maxlength="32">
+      <span class="focus-input100"></span>
+    </div>
+
+    <div id="password_repeat" class="input-wrap validate-input hide" data-validate = "Password is required">
+      <span class="input-label">Repeat Password</span>
+      <input class="input" type="password" name="repeat_password" placeholder="Repeat your password" required minlength="8" maxlength="32">
+      <span class="focus-input100"></span>
+    </div>
+
+    <div class="checkbox-wrap">
+      <input class="checkbox" id="agree" type="checkbox" name="agree" required>
+      <label class="checkbox-label" for="agree">
+      <span>I agree to the <a href="#">Terms of Service</a></span>
+      </label>
+    </div>
+
+    <div class="button-wrap">
+      <button class="button">Sign Up</button>
+      <a href="/signin" style="font-size:1rem;" >Sign In ➡️</a>
+    </div>
+
+    </form>
+
+  </div>
+</div>
+
+<script src="/js/signup.js"></script>
+<% include foot %>
