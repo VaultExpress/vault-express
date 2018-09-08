@@ -1,20 +1,32 @@
 <% include head %>
 <div class="container">
 
-  <div class="data-box">
-    <img src="/img/person.png" class="profile-pic"> <!--Give data to 'alt' attribute-->
-    <div class="pic-caption">
-      <data class="text-align-center" title="Your Username">someone786</data>
-    </div>
+  <div class="box">
+    <img src="/img/person.png" class="profile-img" height="150" width="150" />
+    <h2 id="displayname">display name</h2>
+    <div class="profile-info-box">
 
-    <h1>Profile Info</h1>
-    <div class="person-info">
-      <div class="info-header">Name</div>
-      <data>Some Thing</data>
+      <div class="profile-info-wrap">
+        <span class="profile-info-label">username</span>
+        <div class="profile-info-text" id="username">username</div>
+      </div>
+      <div class="profile-info-wrap">
+        <span class="profile-info-label">email</span>
+        <div class="profile-info-text" id="email">user@example.com</div>
+      </div>
+      <div class="profile-info-wrap">
+        <span class="profile-info-label">fullname</span>
+        <div class="profile-info-text" id="fullname">Demo Joe Trump</div>
+      </div>
+
     </div>
-    <div class="person-info">
-      <div class="info-header">Your Email</div>
-      <data>something@else.com</data>
+    <div class="profile-info-box">
+
+      <div class="profile-info-wrap">
+        <span class="profile-info-label">Info1</span>
+        <div class="profile-info-text" id="info1">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis iaculis sapien a consequat venenatis. Proin non ligula vulputate, maximus sapien eu, faucibus quam. Sed ac condimentum risus, ac faucibus velit. Nulla facilisi. Duis quis lorem quis ipsum cursus volutpat. Nunc et leo in erat finibus suscipit. Donec volutpat a quam quis tincidunt. Donec mattis quam ut nulla rutrum facilisis. Nunc ullamcorper tempus odio sed hendrerit. Pellentesque sapien libero, interdum vel facilisis a, placerat ut tellus. Morbi cursus ante id eros tempor, eget tristique nunc blandit. Vestibulum et metus massa.</div>
+      </div>
+
     </div>
   </div>
 
