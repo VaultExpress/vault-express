@@ -1,13 +1,14 @@
 const low = require('lowdb');
 const FileSync = require('lowdb/adapters/FileSync');
-const file = process.env.DB_JSON;
+const file = process.env.DATABASE_URL;
 
 const adapter = new FileSync(file);
 const dblow = low(adapter);
 
-const jsonfile = require('jsonfile');
+const seed = require('../seed.json');
 
 let db = {};
+db.engine = 'lowdb';
 
 //Create user by passing user object, duplicate check, if dup return null
 db.createUser = (user) => {
@@ -41,8 +42,7 @@ db.remove = (id) => {
 
 //Seed data to database by using data in seed.json
 db.seed = () => {
-  let users = jsonfile.readFileSync('seed.json');
-  return dblow.set('users', users).write();
+  return dblow.set('users', seed).write();
 };
 
 module.exports = db;

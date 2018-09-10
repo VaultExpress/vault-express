@@ -4,6 +4,11 @@ const db = require('../db');
 
 describe('./db/index.js db wrapper functions', () => {
   describe('should implement required functions', () => {
+    it('should exist the `engine` var', () => {
+      expect(db.engine).to.exist;
+      expect(db.engine).to.be.a('string');
+    });
+
     it('should exist the `createUser` method', () => {
       expect(db.createUser).to.exist;
       expect(db.createUser).to.be.a('function');

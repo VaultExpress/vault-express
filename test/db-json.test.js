@@ -2,7 +2,7 @@ require('dotenv').config();
 const { expect } = require('chai');
 
 let env = process.env;
-process.env = { DB_JSON: "dbtest.json" };
+process.env = { DATABASE_URL: "dbtest.json" };
 
 const db = require('../db/db-json');
 const seed = require('../seed.json');
@@ -11,7 +11,7 @@ const fs = require('fs');
 describe('DB Json', () => {
 
   after(function() {
-    fs.unlinkSync(process.env.DB_JSON);
+    fs.unlinkSync(process.env.DATABASE_URL);
     process.env = env;
   });
 

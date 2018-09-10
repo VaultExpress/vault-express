@@ -1,6 +1,6 @@
-// Leave un-comment only a line with the module you want to use
+require('dotenv').config();
+let durl = process.env.DATABASE_URL;
 
-module.exports = require('./db-json');
-
-//module.exports = require('./db-postgres');
-//module.exports = require('./db-mongo');
+if (durl.indexOf('postgres://') > -1) module.exports = require('./db-postgres')
+else if (durl.indexOf('mongodb://') > -1) module.exports = require('./db-mongo')
+else module.exports = require('./db-json');

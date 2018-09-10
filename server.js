@@ -14,6 +14,10 @@ const secure = require('./secure')(db);
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
+if (process.env.NODE_ENV !== 'development' && db.engine === 'lowdb') {
+  console.info('You are using json file as database on production environment');
+}
+
 app.use(helmet());
 app.use(express.static(path.join(__dirname, 'static')));
 app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));

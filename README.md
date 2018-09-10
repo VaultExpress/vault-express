@@ -14,7 +14,7 @@ This project demonstrates the secure web app by using 3 public web pages and 1 p
 * /signin
 
 **Protected page**
-* /profile
+* /secure/profile
 
 ## Why?
 After I went through for many programming tutorials, I thought It was time to create some web app myself.
