@@ -8,18 +8,25 @@ const cfg = require('../config');
 
 module.exports = function(db) {
 
-  router.use(passport.initialize());
-  router.use(passport.session());
+  //router.use(passport.initialize());
+  //router.use(passport.session());
 
   passport.serializeUser(function(user, done) {
     return done(null, user.id);
   });
 
-  passport.deserializeUser(function(id, done) {
-    let user = db.findById(id);
-    if (user) {
-      return done(null, user);
-    }
+  passport.deserializeUser(async function(id, done) {
+    db.findById(id)
+    .then(result => {
+      if (result) {
+        return done(null, result);
+      } else {
+        return done(Error(cfg.msg_auth_found_error), false, { message: cfg.msg_auth_found_error });
+      }
+    })
+    .catch(err => {
+      return done(err, false, { message: cfg.msg_auth_found_error });
+    });
   });
 
   local(passport, db);

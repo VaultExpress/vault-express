@@ -29,7 +29,7 @@ db.createUser = (user) => {
 db.findById = (id) => {
   return dblow
     .then(d => {
-      return d.get('users').find({ user_id: id }).value();
+      return d.get('users').find({ id: id }).value();
     });
 };
 
@@ -45,7 +45,7 @@ db.findByName = (name) => {
 db.update = (user) => {
   return dblow
     .then(d => {
-      return d.get('users').find({user_id: user.user_id}).assign(user).write();
+      return d.get('users').find({id: user.id}).assign(user).write();
     });
 };
 
@@ -53,7 +53,7 @@ db.update = (user) => {
 db.remove = (id) => {
   return dblow
     .then(d => {
-      return d.get('users').remove({ user_id: id }).write();
+      return d.get('users').remove({ id: id }).write();
     });
 };
 

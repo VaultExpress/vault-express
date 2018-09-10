@@ -9,21 +9,37 @@ module.exports = (passport, db) => {
   };
 
   const authen = (username, password, done) => {
-    try {
-      let user = db.findByName(username);
-      if (user) {
-        let match = util.comparePassword(password, user.password);
+//    try {
+//      let user = db.findByName(username);
+//      if (user) {
+//        let match = util.comparePassword(password, user.password);
+//        if (match) {
+//          return done(null, user);
+//        } else {
+//          return done(null, false , { message: cfg.msg_auth_invalid_password });
+//        }
+//      } else {
+//        return done(null, false, { message: cfg.msg_auth_invalid_username });
+//      };
+//    } catch(err) {
+//      return done(err, false, { message: cfg.msg_auth_found_error });
+//    };
+    db.findByName(username)
+    .then(result => {
+      if (result.password) {
+        let match = util.comparePassword(password, result.password);
         if (match) {
-          return done(null, user);
+          return done(null, result);
         } else {
           return done(null, false , { message: cfg.msg_auth_invalid_password });
         }
       } else {
         return done(null, false, { message: cfg.msg_auth_invalid_username });
       };
-    } catch(err) {
+    })
+    .catch(err => {
       return done(err, false, { message: cfg.msg_auth_found_error });
-    };
+    });
   };
 
   passport.use(new LocalStrategy(options, authen));

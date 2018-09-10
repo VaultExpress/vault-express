@@ -7,6 +7,7 @@ const path = require('path');
 const app = express();
 const session = require("express-session");
 const bodyParser = require("body-parser");
+const passport = require('passport')
 
 const db = require('./db');
 const secure = require('./secure')(db);
@@ -14,7 +15,7 @@ const secure = require('./secure')(db);
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
 
-if (process.env.NODE_ENV !== 'development' && db.engine === 'lowdb') {
+if (process.env.NODE_ENV === 'production' && db.engine === 'lowdb') {
   console.info('You are using json file as database on production environment');
 }
 
@@ -25,14 +26,24 @@ app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
-app.use(session({
+let sess = {
   secret: cfg.session_secret,
   resave: false,
-  saveUninitialized: false
-}));
+  saveUninitialized: false,
+  cookie: {}
+}
+
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1) // trust first proxy
+  sess.cookie.secure = true // serve secure cookies
+}
+
+app.use(session(sess));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
+  app.use(passport.initialize());
+  app.use(passport.session());
 app.use('/auth', require('./auth')(db));
 app.use('/secure', secure);
 

@@ -10,7 +10,7 @@ const fs = require('fs');
 
 describe('./db/db-json.js', () => {
 
-  const user = { username: 'createUserTest', user_id: 'create_user_test' };
+  const user = { username: 'createUserTest', id: 'create_user_test' };
 
   after(function() {
     fs.unlinkSync(process.env.DATABASE_URL);
@@ -40,8 +40,8 @@ describe('./db/db-json.js', () => {
 
   // findById Method
   describe('findById', () => {
-    it('should find a specific user by user_id', async () => {
-      let result = await db.findById(user.user_id);
+    it('should find a specific user by id', async () => {
+      let result = await db.findById(user.id);
       expect(result).to.deep.equal(user);
     });
   });
@@ -56,8 +56,8 @@ describe('./db/db-json.js', () => {
 
   // update Method
   describe('update', () => {
-    it('should update a specific user by user_id', async () => {
-      let update_user = { user_id: user.user_id, username: 'new name' };
+    it('should update a specific user by id', async () => {
+      let update_user = { id: user.id, username: 'new name' };
       let result = await db.update(update_user);
       expect(result).to.deep.equal(update_user);
     });
@@ -65,8 +65,8 @@ describe('./db/db-json.js', () => {
 
   // remove Method
   describe('remove', () => {
-    it('should remove an user by user_id', async () => {
-      let result = await db.remove(user.user_id);
+    it('should remove an user by id', async () => {
+      let result = await db.remove(user.id);
       //remove function return removed objects in array if succeed
       expect(result[0]).to.deep.equal(user);
     });
