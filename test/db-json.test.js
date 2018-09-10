@@ -8,7 +8,9 @@ const db = require('../db/db-json');
 const seed = require('../seed.json');
 const fs = require('fs');
 
-describe('DB Json', () => {
+describe('./db/db-json.js', () => {
+
+  const user = { username: 'createUserTest', user_id: 'create_user_test' };
 
   after(function() {
     fs.unlinkSync(process.env.DATABASE_URL);
@@ -17,48 +19,56 @@ describe('DB Json', () => {
 
   // seed Method
   describe('seed', () => {
-    it('should seed the actual db with sample json file', () => {
-      expect(db.seed().users).to.deep.equal(seed);
+    it('should seed the actual db with sample json file', async () => {
+      let result = await db.seed();
+      expect(result.users).to.deep.equal(seed);
     });
   });
 
   // createUser Method
   describe('createUser', () => {
-    it('should create an user', () => {
-      const user = { username: 'test by mocha', user_id: 'testbymocha' };
-      expect(db.createUser(user)).to.include(user);
+    it('should create an user', async () => {
+      let result = await db.createUser(user);
+      expect(result).to.include(user);
+    });
+    it('should not create an duplicated user', async () => {
+      let result = await db.createUser(user);
+      expect(result).to.not.include(user);
+      expect(result).to.deep.equal({ error: 'found duplicate'});
     });
   });
 
   // findById Method
   describe('findById', () => {
-    it('should find a specific user by user_id', () => {
-      const user = { username: 'test by mocha', user_id: 'testbymocha' };
-      expect(db.findById(user.user_id)).to.deep.equal(user);
+    it('should find a specific user by user_id', async () => {
+      let result = await db.findById(user.user_id);
+      expect(result).to.deep.equal(user);
     });
   });
 
   // findByName method
   describe('findByName', () => {
-    it('should find a specific user by username', () => {
-      const user = { username: 'test by mocha', user_id: 'testbymocha' };
-      expect(db.findByName(user.username)).to.deep.equal(user);
+    it('should find a specific user by username', async () => {
+      let result = await db.findByName(user.username);
+      expect(result).to.deep.equal(user);
     });
   });
 
   // update Method
   describe('update', () => {
-    it('should update a specific user by user_id', () => {
-      const user = { username: 'test by mocha updated', user_id: 'testbymocha' };
-      expect(db.update(user)).to.deep.equal(user);
+    it('should update a specific user by user_id', async () => {
+      let update_user = { user_id: user.user_id, username: 'new name' };
+      let result = await db.update(update_user);
+      expect(result).to.deep.equal(update_user);
     });
   });
 
   // remove Method
   describe('remove', () => {
-    it('should remove an user by user_id', () => {
-      const user = { username: 'test by mocha', user_id: 'testbymocha' };
-      expect(db.remove(user.user_id)).to.not.include(user);
+    it('should remove an user by user_id', async () => {
+      let result = await db.remove(user.user_id);
+      //remove function return removed objects in array if succeed
+      expect(result[0]).to.deep.equal(user);
     });
   });
 
