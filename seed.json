@@ -4,7 +4,7 @@
     "username": "demo",
     "password": "$2b$12$NryJ1wpkUZX6LjQvfjaLCOMMUFUvBiRsS6hy0NV8/0Y8P68Z1ED9u",
     "provider": "local",
-    "email": [
+    "emails": [
       {
         "value": "demo@example.com",
         "type": "work"
@@ -18,6 +18,43 @@
     "name": {
       "givenName": "Demo",
       "middleName": "Joe",
+      "familyName": "Trump"
+    },
+    "photos": [
+      {
+        "value": "",
+        "type": "profile"
+      },
+      {
+        "value": "",
+        "type": "background"
+      }
+    ],
+    "info1": "",
+    "info2": "",
+    "info3": "",
+    "info4": "",
+    "info5": ""
+  },
+  {
+    "id": "0000ee0d-5553-5b3e-b13c-41922315f230",
+    "username": "demo2",
+    "password": "$2b$12$NryJ1wpkUZX6LjQvfjaLCOMMUFUvBiRsS6hy0NV8/0Y8P68Z1ED9u",
+    "provider": "local",
+    "emails": [
+      {
+        "value": "demo2@example.com",
+        "type": "work"
+      },
+      {
+        "value": "demo2@gmail.com",
+        "type": "personal"
+      }
+    ],
+    "displayName": "I am Demo Two",
+    "name": {
+      "givenName": "Demo",
+      "middleName": "Two",
       "familyName": "Trump"
     },
     "photos": [

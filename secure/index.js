@@ -8,7 +8,7 @@ module.exports = function(db) {
       username: req.user.username,
       displayname: req.user.displayName,
       fullname: req.user.name.givenName + ' ' + req.user.name.middleName + ' ' + req.user.name.familyName,
-      email: req.user.email[0].value,
+      email: req.user.emails[0].value,
       info1: req.user.info1
     };
     res.render('profile', data);

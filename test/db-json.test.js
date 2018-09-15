@@ -1,26 +1,29 @@
 require('dotenv').config();
 const { expect } = require('chai');
 
-let env = process.env;
-process.env = { DATABASE_URL: "dbtest.json" };
+let DATABASE_URL = process.env.DATABASE_URL;
+let is_json = true;
+if ((DATABASE_URL.indexOf('postgres://') > -1) || (DATABASE_URL.indexOf('mongodb://') > -1)) is_json = false;
 
-const db = require('../db/db-json');
-const seed = require('../seed.json');
-const fs = require('fs');
-
-describe('./db/db-json.js', () => {
-
+(is_json ? describe : describe.skip)('./db/db-json.js', () => {
+  let file, db, seed;
   const user = { username: 'createUserTest', id: 'create_user_test' };
 
+  before(function() {
+    file = 'dbtest.json';
+    let cfg = null;
+    db = require('../db/db-json')(file,  cfg);
+    seed = require('../seed.json');
+  });
+
   after(function() {
-    fs.unlinkSync(process.env.DATABASE_URL);
-    process.env = env;
+    require('fs').unlinkSync(file);
   });
 
   // seed Method
   describe('seed', () => {
     it('should seed the actual db with sample json file', async () => {
-      let result = await db.seed();
+      let result = await db.seed(seed);
       expect(result.users).to.deep.equal(seed);
     });
   });
@@ -34,7 +37,7 @@ describe('./db/db-json.js', () => {
     it('should not create an duplicated user', async () => {
       let result = await db.createUser(user);
       expect(result).to.not.include(user);
-      expect(result).to.deep.equal({ error: 'found duplicate'});
+      expect(result).to.deep.equal({ found: true });
     });
   });
 

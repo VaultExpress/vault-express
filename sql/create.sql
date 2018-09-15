@@ -1,4 +1,4 @@
-CREATE TABLE ve_users (
+CREATE TABLE VE_users (
   id            VARCHAR(36) PRIMARY KEY,
   username      VARCHAR(15) NOT NULL,
   password      VARCHAR(60) NOT NULL,
@@ -11,19 +11,19 @@ CREATE TABLE ve_users (
   info2         VARCHAR(100) NULL,
   info3         VARCHAR(100) NULL,
   info4         VARCHAR(100) NULL,
-  info5         VARCHAR(100) NULL,
+  info5         VARCHAR(100) NULL
 );
 
-CREATE TABLE ve_emails (
+CREATE TABLE VE_emails (
   id            SERIAL  PRIMARY KEY,
   email_type    VARCHAR(20) NOT NULL,
   email_address VARCHAR(254) NOT NULL,
-  user_id       VARCHAR(36) NOT NULL REFERENCES users
+  user_id       VARCHAR(36) NOT NULL REFERENCES VE_users
 );
 
-CREATE TABLE ve_photos (
+CREATE TABLE VE_photos (
   id            SERIAL  PRIMARY KEY,
   photo_type    VARCHAR(20) NOT NULL,
   photo_url     VARCHAR(2000) NOT NULL,
-  user_id       VARCHAR(36) NOT NULL REFERENCES users
+  user_id       VARCHAR(36) NOT NULL REFERENCES VE_users
 );

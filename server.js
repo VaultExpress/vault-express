@@ -20,8 +20,8 @@ if (process.env.NODE_ENV === 'production' && db.engine === 'lowdb') {
 }
 
 app.use(helmet());
-app.use(express.static(path.join(__dirname, 'static')));
-app.use(favicon(path.join(__dirname, 'static', 'favicon.ico')));
+app.use(express.static(path.join(__dirname, 'public')));
+app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -42,8 +42,9 @@ app.use(session(sess));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
-  app.use(passport.initialize());
-  app.use(passport.session());
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use('/auth', require('./auth')(db));
 app.use('/secure', secure);
 

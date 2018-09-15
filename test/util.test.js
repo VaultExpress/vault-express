@@ -21,7 +21,7 @@ describe("./util/index.js - Utility functions", () => {
 
   describe("File encoding functions", () => {
     let encoded_txt = "";
-    let srcBuffer = fs.readFileSync("./static/img/person.png");
+    let srcBuffer = fs.readFileSync("./public/img/person.png");
     it("should be able to encoding file", () => {
       encoded_txt = util.encodeFile(srcBuffer);
       expect(encoded_txt).is.not.empty;

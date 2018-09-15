@@ -9,5 +9,7 @@ module.exports = {
   msg_auth_found_error: "Found error", // used in auth/local.js
   msg_auth_invalid_username: "Invalid Username or password", // used in auth/local.js
   msg_auth_invalid_password: "Invalid username or Password", // used in auth/local.js
-  msg_auth_passport_login_error: "Found error" // used in auth/index.js
+  msg_auth_passport_login_error: "Found error", // used in auth/index.js
+
+  pg_tablename_prefix: "ve_"
 }
