@@ -1,67 +1,186 @@
 require('dotenv').config();
 
 const { Pool } = require('pg');
-const seed = require('../seed.json');
 const fs = require('fs');
 
-module.exports = function(DATABASE_URL, cfg) {
+module.exports = (DATABASE_URL, cfg) => {
   const con = new Pool({
     connectionString: DATABASE_URL,
     ssl: true,
   });
 
-  let db = {};
+  const db = {};
   db.engine = 'postgresql';
 
-  //Create user by passing user object, duplicate check, if dup return error object in promise
-  db.createUser = (user) => {
-    return db.findByName(user.username)
-    .then(res => {
-      if (res) {
-        return { found: true };
-      } else {
-        return insert_users(user);
+  const query = (sql, params) => con.connect()
+    .then(client => client.query(sql, params)
+      .then((res) => {
+        client.release();
+        return Promise.resolve(res);
+      })
+      .catch((err) => {
+        client.release();
+        return Promise.reject(err);
+      }));
+
+  const getRelatedData = (user) => {
+    if (user) {
+      let sqlEmail = `SELECT * FROM ${cfg.pg_tablename_prefix}emails WHERE user_id = 'UID'`;
+      let sqlPhoto = `SELECT * FROM ${cfg.pg_tablename_prefix}photos WHERE user_id = 'UID'`;
+      sqlEmail = sqlEmail.replace(/UID/g, user.id);
+
+      return query(sqlEmail)
+        .then((res) => {
+          const clonedUser = { ...user, emails: [] };
+          if (res.rows[0]) {
+            res.rows.forEach(email => clonedUser.emails.push({
+              value: email.email_address,
+              type: email.email_type,
+            }));
+          }
+
+          return clonedUser;
+        })
+        .then((userResponse) => {
+          sqlPhoto = sqlPhoto.replace(/UID/g, user.id);
+
+          return query(sqlPhoto)
+            .then((res) => {
+              const clonedUser = { ...userResponse, photos: [] };
+              if (res.rows[0]) {
+                res.rows.forEach(photo => clonedUser.photos.push({
+                  value: photo.photo_url,
+                  type: photo.photo_type,
+                }));
+              }
+
+              return clonedUser;
+            });
+        });
+    }
+
+    return user;
+  };
+
+  const insertUsers = async (usersData) => {
+    try {
+      const users = Array.isArray(usersData) ? usersData : [usersData];
+      let userValues = '';
+      let emailValues = '';
+      let photoValues = '';
+
+      users.forEach((user) => {
+        if (!user.id || !user.username || !user.password) throw Error('Missing mandatory data');
+
+        const provider = user.provider || 'local';
+        const displayName = user.displayName || '';
+        const name = user.name || {};
+        const givenName = name.givenName || '';
+        const middleName = name.middleName || '';
+        const familyName = name.familyName || '';
+        const info1 = user.info1 || '';
+        const info2 = user.info2 || '';
+        const info3 = user.info3 || '';
+        const info4 = user.info4 || '';
+        const info5 = user.info5 || '';
+        const userArray = [
+          user.id,
+          user.username,
+          user.password,
+          provider,
+          displayName,
+          givenName,
+          middleName,
+          familyName,
+          info1,
+          info2,
+          info3,
+          info4,
+          info5,
+        ];
+        const separator = ',';
+        userValues += `('${userArray.join(`'${separator}'`)}'),`;
+
+        if (user.emails) {
+          user.emails.forEach((email) => {
+            const type = email.type || '';
+            const value = email.value || '';
+            const emailArray = [user.id, type, value];
+            emailValues += `('${emailArray.join(`'${separator}'`)}'),`;
+          });
+        }
+
+        if (user.photos) {
+          user.photos.forEach((photo) => {
+            const type = photo.type || '';
+            const value = photo.value || '';
+            const photoArray = [user.id, type, value];
+            photoValues += `('${photoArray.join(`'${separator}'`)}'),`;
+          });
+        }
+      });
+
+      const sqlUsers = `INSERT INTO ${cfg.pg_tablename_prefix}users (
+          id, username, password, provider, display_name, given_name, middle_name, family_name, info1, info2, info3, info4, info5
+        ) VALUES ${userValues.slice(0, -1)}`;
+      await query(sqlUsers);
+
+      if (emailValues) {
+        const sqlEmails = `INSERT INTO ${cfg.pg_tablename_prefix}emails (user_id, email_type, email_address) VALUES ${emailValues.slice(0, -1)}`;
+        await query(sqlEmails);
       }
-    });
+
+      if (photoValues) {
+        const sqlPhotos = `INSERT INTO ${cfg.pg_tablename_prefix}photos (user_id, photo_type, photo_url ) VALUES ${photoValues.slice(0, -1)}`;
+        await query(sqlPhotos);
+      }
+
+      return { success: true };
+    } catch (err) {
+      return Promise.reject(err);
+    }
   };
 
-  //Find user by user_id, if found return an object in promise
+  // Create user by passing user object, duplicate check, if dup return error object in promise
+  db.createUser = user => db.findByName(user.username)
+    .then(res => (res ? { found: true } : insertUsers(user)));
+
+  // Find user by user_id, if found return an object in promise
   db.findById = (id) => {
-    let sql = 'SELECT * FROM ' + cfg.pg_tablename_prefix + 'users WHERE id = \'' + id + '\'';
+    const sql = `SELECT * FROM ${cfg.pg_tablename_prefix}users WHERE id = '${id}'`;
     return query(sql)
-      .then(res => {
-        let user = res.rows[0];
+      .then((res) => {
+        const user = res.rows[0];
         if (user) {
           user.displayName = user.display_name;
           user.name = {
             givenName: user.given_name,
             middleName: user.middle_name,
-            familyName: user.family_name
+            familyName: user.family_name,
           };
-          delete user['given_name'];
-          delete user['middle_name'];
-          delete user['family_name'];
-          delete user['display_name'];
+          delete user.given_name;
+          delete user.middle_name;
+          delete user.family_name;
+          delete user.display_name;
         }
         return user;
       })
-      .then(user => {
-        return get_related_data(user);
-      });
+      .then(user => getRelatedData(user));
   };
 
-  //Find user by username, if found return an object in promise
+  // Find user by username, if found return an object in promise
   db.findByName = (name) => {
-    let sql = 'SELECT * FROM ' + cfg.pg_tablename_prefix + 'users WHERE username = \'' + name + '\'';
+    const sql = `SELECT * FROM ${cfg.pg_tablename_prefix}users WHERE username = '${name}'`;
+
     return query(sql)
-      .then(res => {
-        let user = res.rows[0];
+      .then((res) => {
+        const user = res.rows[0];
         if (user) {
           user.displayName = user.display_name;
           user.name = {
             givenName: user.given_name,
             middleName: user.middle_name,
-            familyName: user.family_name
+            familyName: user.family_name,
           };
           delete user['given_name'];
           delete user['middle_name'];
@@ -71,11 +190,11 @@ module.exports = function(DATABASE_URL, cfg) {
         return user;
       })
       .then(user => {
-        return get_related_data(user);
+        return getRelatedData(user);
       });
   };
 
-  //Update user by passing user object
+  // Update user by passing user object
   db.update = (user) => {
     if (!user.id) throw Error('missing mandatory data');
     let u = JSON.parse(JSON.stringify(user));
@@ -145,7 +264,7 @@ console.log(sql);
     });
   };
 
-  //Seed data to database by using data in seed.json
+  // Seed data to database by using data in seed.json
   db.seed = async (seed) => {
     try {
       let found = await is_table_exist();
@@ -155,7 +274,7 @@ console.log(sql);
         return 'stop seeding, table already exist.';
       } else {
         await create_table();
-        await insert_users(seed);
+        await insertUsers(seed);
         return { success: true };
       }
     } catch(err) {
@@ -205,117 +324,6 @@ console.log(sql);
       return Promise.reject(err);
     }
   };
-
-  const get_related_data = (user) => {
-    if (user) {
-      let sql_email = 'SELECT * FROM ' + cfg.pg_tablename_prefix + 'emails WHERE user_id = \'UID\'';
-      let sql_photo = 'SELECT * FROM ' + cfg.pg_tablename_prefix + 'photos WHERE user_id = \'UID\'';
-      sql_email = sql_email.replace(/UID/g, user.id);
-      return query(sql_email)
-        .then(res => {
-          user.emails = [];
-          if (res.rows[0]) {
-            for (let i = 0, len = res.rows.length; i < len; i++) {
-              user.emails.push({
-                value: res.rows[i].email_address,
-                type: res.rows[i].email_type
-              });
-            }
-          }
-          return user;
-        })
-        .then(user => {
-          sql_photo = sql_photo.replace(/UID/g, user.id);
-          return query(sql_photo)
-          .then(res => {
-            user.photos = [];
-            if (res.rows[0]) {
-              for (let i = 0, len = res.rows.length; i < len; i++) {
-                user.photos.push({
-                  value: res.rows[i].photo_url,
-                  type: res.rows[i].photo_type
-                });
-              }
-            }
-            return user;
-          });
-        });
-    } else {
-      return user;
-    }
-  }
-
-  const insert_users = async (users) => {
-    try {
-      users = Array.isArray(users)?users:[users];
-      let user_values = '', email_values = '', photo_values = '';
-      for (let i = 0, len = users.length; i < len; i++) {
-        if (!users[i].id || !users[i].username || !users[i].password) throw Error('missing mandatory data');
-        let provider = users[i].provider || 'local';
-        let displayName = users[i].displayName || '';
-        if (!users[i].name) users[i].name = '';
-        let givenName = users[i].name.givenName || '';
-        let middleName = users[i].name.middleName || '';
-        let familyName = users[i].name.familyName || '';
-        let info1 = users[i].info1 || '';
-        let info2 = users[i].info2 || '';
-        let info3 = users[i].info3 || '';
-        let info4 = users[i].info4 || '';
-        let info5 = users[i].info5 || '';
-        let user_array = [users[i].id, users[i].username, users[i].password, provider,
-          displayName, givenName, middleName, familyName, info1, info2, info3, info4, info5];
-        user_values += '(\''+user_array.join('\',\'')+'\'),';
-
-        if (users[i].emails) {
-          for (let j = 0, lenj = users[i].emails.length; j < lenj; j++) {
-            let type = users[i].emails[j].type || '';
-            let value = users[i].emails[j].value || '';
-            let email_array = [users[i].id, type, value];
-            email_values += '(\''+email_array.join('\',\'')+'\'),';
-          }
-        }
-
-        if (users[i].photos) {
-          for (let k = 0, lenk = users[i].photos.length; k < lenk; k++) {
-            let type = users[i].photos[k].type || '';
-            let value = users[i].photos[k].value || '';
-            let photo_array = [users[i].id, type, value];
-            photo_values += '(\''+photo_array.join('\',\'')+'\'),';
-          }
-        }
-      }
-
-      let sql_users = 'INSERT INTO ' + cfg.pg_tablename_prefix + 'users (' +
-          'id, username, password, provider, display_name, given_name, middle_name, family_name, ' +
-          'info1, info2, info3, info4, info5) VALUES ' + user_values.slice(0, -1);
-      await query(sql_users);
-
-      if (email_values)  {
-        let sql_emails = 'INSERT INTO '+cfg.pg_tablename_prefix+'emails (user_id, email_type, email_address) VALUES '+email_values.slice(0,-1);
-        await query(sql_emails);
-      }
-      if (photo_values) {
-        let sql_photos = 'INSERT INTO '+cfg.pg_tablename_prefix+'photos (user_id, photo_type, photo_url ) VALUES '+photo_values.slice(0,-1);
-        await query(sql_photos);
-      }
-      return { success: true };
-    } catch(err) {
-      return Promise.reject(err);
-    }
-  }
-
-  const query = (sql, params) => con.connect()
-  .then(client =>
-    client.query(sql, params)
-    .then(res => {
-      client.release();
-      return Promise.resolve(res);
-    })
-    .catch(err => {
-      client.release();
-      return Promise.reject(err);
-    })
-  );
 
   return db;
 };
