@@ -1,4 +1,6 @@
-//pass url string, json data object and callback function
+/* eslint-disable */
+
+// pass url string, json data object and callback function
 function postForm(url, data, callback) {
   if (typeof callback === "function") {
     var xhr = new XMLHttpRequest();
