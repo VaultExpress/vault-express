@@ -1,30 +1,24 @@
-const cfg = require('../config');
 const bcrypt = require('bcrypt');
+const cfg = require('../config');
 const uuid = require('./util.uuidv5');
 
-let util = {};
+const util = {};
 
-util.encrypt = (plain_password) => {
-  return bcrypt.hashSync(plain_password, cfg.password_hash_salt_rounds);
-};
+util.encrypt = plainPassword => bcrypt
+  .hashSync(plainPassword, cfg.password_hash_salt_rounds);
 
-util.comparePassword = (plain_password, hash_password) => {
-  return bcrypt.compareSync(plain_password, hash_password);
-};
+util.comparePassword = (plainPassword, hashPassword) => bcrypt
+  .compareSync(plainPassword, hashPassword);
 
-//pass Buffer object, return Base64 encoded string
-util.encodeFile = (buf) => {
-  return buf.toString('base64');
-};
+// Pass Buffer object, return Base64 encoded string
+util.encodeFile = buf => buf
+  .toString('base64');
 
-//pass Base64 encoded string, return Buffer object
-util.decodeFile = (encoded_txt) => {
-  return Buffer.from(encoded_txt, 'base64');
-};
+// Pass Base64 encoded string, return Buffer object
+util.decodeFile = encodedTxt => Buffer
+  .from(encodedTxt, 'base64');
 
-//pass username, return uuid
-util.genUserId = (username) => {
-  return uuid.uuidv5(username);
-}
+// Pass username, return uuid
+util.genUserId = username => uuid.uuidv5(username);
 
 module.exports = util;
