@@ -182,145 +182,136 @@ module.exports = (DATABASE_URL, cfg) => {
             middleName: user.middle_name,
             familyName: user.family_name,
           };
-          delete user['given_name'];
-          delete user['middle_name'];
-          delete user['family_name'];
-          delete user['display_name'];
+          delete user.given_name;
+          delete user.middle_name;
+          delete user.family_name;
+          delete user.display_name;
         }
         return user;
       })
-      .then(user => {
-        return getRelatedData(user);
-      });
+      .then(user => getRelatedData(user));
   };
 
   // Update user by passing user object
   db.update = (user) => {
     if (!user.id) throw Error('missing mandatory data');
-    let u = JSON.parse(JSON.stringify(user));
-    let e = user.emails?JSON.parse(JSON.stringify(user.emails)):[];
-    let p = user.photos?JSON.parse(JSON.stringify(user.photos)):[];
-    delete u['id'];
-    delete u['name'];
-    delete u['emails'];
-    delete u['photos'];
+    const parsedUser = JSON.parse(JSON.stringify(user));
+    const parsedEmails = user.emails ? JSON.parse(JSON.stringify(user.emails)) : [];
+    const parsedPhotos = user.photos ? JSON.parse(JSON.stringify(user.photos)) : [];
+
+    delete parsedUser.id;
+    delete parsedUser.name;
+    delete parsedUser.emails;
+    delete parsedUser.photos;
+
     if (user.name) {
-      if (user.name.givenName) u['given_name'] = user.name.givenName;
-      if (user.name.middleName) u['middle_name'] = user.name.middleName;
-      if (user.name.familyName) u['family_name'] = user.name.familyName;
-    }
-    let sql_array = [];
-
-    let user_array = ['UPDATE ' + cfg.pg_tablename_prefix + 'users SET'];
-    let user_set = [];
-    Object.keys(u).forEach(function (key, i) {
-      user_set.push(key + ' = \'' + (u[key]||'') + '\'');
-    });
-    user_array.push(user_set.join(', '));
-    user_array.push('WHERE id = \''+user.id+'\';');
-    sql_array.push(user_array.join(' '));
-
-    if (e.length) {
-      for (let i = 0, len = e.length; i < len; i++) {
-        let email_array = ['UPDATE ' + cfg.pg_tablename_prefix + 'emails SET'];
-        email_array.push('email_address = \'' + (e[i].value||'') + '\'');
-        email_array.push('WHERE user_id = \'' + user.id + '\'');
-        email_array.push('AND email_type = \'' + (e[i].type||'') + '\';');
-
-        sql_array.push(email_array.join(' '));
-      }
+      if (user.name.givenName) parsedUser.given_name = user.name.givenName;
+      if (user.name.middleName) parsedUser.middle_name = user.name.middleName;
+      if (user.name.familyName) parsedUser.family_name = user.name.familyName;
     }
 
-    if (p.length) {
-      for (let i = 0, len = p.length; i < len; i++) {
-        let photo_array = ['UPDATE ' + cfg.pg_tablename_prefix + 'photos SET'];
-        photo_array.push('photo_url = \'' + (p[i].value||'') + '\'');
-        photo_array.push('WHERE user_id = \'' + user.id + '\'');
-        photo_array.push('AND photo_type = \'' + (p[i].type||'') + '\';');
+    const sqlArray = [];
+    const userArray = [`UPDATE ${cfg.pg_tablename_prefix}users SET`];
+    const userSet = [];
 
-        sql_array.push(photo_array.join(' '));
-      }
+    Object.keys(parsedUser).forEach(key => userSet.push(`${key} = '${(parsedUser[key] || '')}'`));
+
+    userArray.push(userSet.join(', '));
+    userArray.push(`WHERE id = '${user.id}';`);
+    sqlArray.push(userArray.join(' '));
+
+    if (parsedEmails.length) {
+      parsedEmails.forEach((email) => {
+        const emailArray = [`UPDATE ${cfg.pg_tablename_prefix}emails SET`];
+
+        emailArray.push(`email_address = '${(email.value || '')}'`);
+        emailArray.push(`WHERE user_id = '${user.id}'`);
+        emailArray.push(`AND email_type = '${(email.type || '')}';`);
+
+        sqlArray.push(emailArray.join(' '));
+      });
     }
-    let sql = sql_array.join(' ');
-console.log(sql);
+
+    if (parsedPhotos.length) {
+      parsedPhotos.forEach((photo) => {
+        const photoArray = [`UPDATE ${cfg.pg_tablename_prefix}photos SET`];
+        photoArray.push(`photo_url = '${(photo.value || '')}'`);
+        photoArray.push(`WHERE user_id = '${user.id}'`);
+        photoArray.push(`AND photo_type = '${(photo.type || '')}';`);
+
+        sqlArray.push(photoArray.join(' '));
+      });
+    }
+
+    const sql = sqlArray.join(' ');
     return query(sql.slice(0, -1))
-    .then(res => {
-      return { success: true };
-    });
-
+      .then(() => ({ success: true }));
   };
 
-  //Remove user by user_id
+  // Remove user by user_id
   db.remove = (id) => {
-    let sql = 'DELETE FROM ' + cfg.pg_tablename_prefix + 'photos WHERE user_id = \'' + id + '\';';
-    sql += 'DELETE FROM ' + cfg.pg_tablename_prefix + 'emails WHERE user_id = \'' + id + '\';';
-    sql += 'DELETE FROM ' + cfg.pg_tablename_prefix + 'users WHERE id = \'' + id + '\';';
+    const sql = `
+      DELETE FROM ${cfg.pg_tablename_prefix}photos WHERE user_id = '${id}';
+      DELETE FROM ${cfg.pg_tablename_prefix}emails WHERE user_id = '${id}';
+      DELETE FROM ${cfg.pg_tablename_prefix}users WHERE id = '${id}';
+    `;
     return query(sql)
-    .then(res => {
-      return { success: true };
-    })
-    .catch(err => {
+      .then(() => ({ success: true }))
+      .catch(err => Promise.reject(err));
+  };
+
+  const isTableExist = async () => {
+    try {
+      const sql = `SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name like '${cfg.pg_tablename_prefix}%')`;
+      const res = await query(sql);
+      return res.rows[0].exists;
+    } catch (err) {
       return Promise.reject(err);
-    });
+    }
+  };
+
+  const createTable = async () => {
+    try {
+      let sql = fs.readFileSync('./sql/create.sql').toString();
+      sql = sql.replace(/VE_/g, cfg.pg_tablename_prefix);
+      await query(sql);
+      return { success: true };
+    } catch (err) {
+      return Promise.reject(err);
+    }
   };
 
   // Seed data to database by using data in seed.json
   db.seed = async (seed) => {
     try {
-      let found = await is_table_exist();
+      const found = await isTableExist();
       if (found) {
-        console.log('found tables with prefix "' + cfg.pg_tablename_prefix + '" in database');
-        console.log('please drop those tables and try again');
-        return 'stop seeding, table already exist.';
-      } else {
-        await create_table();
-        await insertUsers(seed);
-        return { success: true };
+        console.log(`Found tables with prefix ${cfg.pg_tablename_prefix} in database \n Please drop those tables and try again`); // eslint-disable-line no-console
+        return 'Stop seeding, table already exist.';
       }
-    } catch(err) {
+
+      await createTable();
+      await insertUsers(seed);
+      return { success: true };
+    } catch (err) {
       return Promise.reject(err);
     }
   };
 
   db.drop_table = async () => {
     try {
-      let found = await is_table_exist();
+      const found = await isTableExist();
       if (found) {
         let sql = fs.readFileSync('./sql/drop.sql').toString();
         sql = sql.replace(/VE_/g, cfg.pg_tablename_prefix);
-        let res = await query(sql);
-        console.info('drop executed.');
+        await query(sql);
+        console.info('Drop executed.'); // eslint-disable-line no-console
         return { success: true };
-      } else {
-        console.info('table does not exist.');
-        return { not_found: true };
       }
-    } catch(err) {
-      return Promise.reject(err);
-    }
-  };
 
-  const is_table_exist = async () => {
-    try {
-      let sql = 'SELECT EXISTS (SELECT table_name FROM information_schema.tables WHERE table_name like \'' + cfg.pg_tablename_prefix + '%\')';
-      let res = await query(sql);
-      if (res.rows[0].exists) {
-        return true;
-      } else {
-        return false;
-      }
-    } catch(err) {
-      return Promise.reject(err);
-    }
-  };
-
-  const create_table = async () => {
-    try {
-      let sql = fs.readFileSync('./sql/create.sql').toString();
-      sql = sql.replace(/VE_/g, cfg.pg_tablename_prefix);
-      let res = await query(sql);
-      return { success: true };
-    } catch(err) {
+      console.info('Table does not exist.'); // eslint-disable-line no-console
+      return { not_found: true };
+    } catch (err) {
       return Promise.reject(err);
     }
   };
