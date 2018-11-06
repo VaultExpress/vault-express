@@ -1,45 +1,51 @@
 require('dotenv').config();
 const { expect } = require('chai');
+const dbPostgres = require('../db/db-postgres');
+const mock = require('../seed.json');
+const config = require('../config');
 
-let DATABASE_URL = process.env.DATABASE_URL;
-let is_postgres = false;
-if (DATABASE_URL.indexOf('postgres://') > -1) is_postgres = true;
+const { DATABASE_URL } = process.env;
+const isPostgres = DATABASE_URL.indexOf('postgres://') > -1;
 
-(is_postgres ? describe : describe.skip)('./db/db-postgres.js', () => {
-  let db, seed;
-  const user = { id: 'create_user_test', username: 'createUserTest', password: 'password', emails: [{ value: 'test@test.org', type: 'personal' }] };
+(isPostgres ? describe : describe.skip)('./db/db-postgres.js', () => {
+  let db;
+  let seed;
+  const user = {
+    id: 'create_user_test',
+    username: 'createUserTest',
+    password: 'password',
+    emails: [{ value: 'test@test.org', type: 'personal' }],
+  };
 
-  before(function() {
-    let cfg = require('../config');
+  before(() => {
+    const cfg = config;
     cfg.pg_tablename_prefix = 'vetest_';
-    db = require('../db/db-postgres')(DATABASE_URL, cfg);
-    seed = require('../seed.json');
+    db = dbPostgres(DATABASE_URL, cfg);
+    seed = mock;
   });
 
-  after(function() {
-    return db.drop_table()
-    .then(res => {
-      console.info('after-hook called.');
+  after(() => db.drop_table()
+    .then(() => {
+      console.info('after-hook called.'); // eslint-disable-line no-console
       return Promise.resolve();
     })
-    .catch(err => {
-      return Promise.reject(err);
-    });
-  });
+    .catch(err => Promise.reject(err)));
 
   // seed Method
   describe('seed', () => {
+    /* eslint-disable */
     it('should seed json data to postgresql', async function() {
       this.timeout(10000);
-      let result = await db.seed(seed);
+      const result = await db.seed(seed);
       expect(result).to.deep.equal({ success: true });
     });
+    /* eslint-enable */
   });
 
   // findByName method
   describe('findByName', () => {
     it('should find a specific user by username', async () => {
-      let result = await db.findByName(seed[0].username);
+      const result = await db.findByName(seed[0].username);
       expect(result).to.deep.equal(seed[0]);
     });
   });
@@ -47,7 +53,7 @@ if (DATABASE_URL.indexOf('postgres://') > -1) is_postgres = true;
   // findById Method
   describe('findById', () => {
     it('should find a specific user by id', async () => {
-      let result = await db.findById(seed[0].id);
+      const result = await db.findById(seed[0].id);
       expect(result).to.deep.equal(seed[0]);
     });
   });
@@ -55,40 +61,38 @@ if (DATABASE_URL.indexOf('postgres://') > -1) is_postgres = true;
   // createUser Method
   describe('createUser', () => {
     it('should create an user', async () => {
-      let result = await db.createUser(user);
+      const result = await db.createUser(user);
       expect(result).to.deep.equal({ success: true });
     });
+
     it('should not create an duplicated user', async () => {
-      let result = await db.createUser(user);
+      const result = await db.createUser(user);
       expect(result).to.not.deep.equal({ success: true });
       expect(result).to.deep.equal({ found: true });
     });
   });
 
-
-
   // update Method
   describe('update', () => {
-    it('should update a specific user by id', async function() {
-      let update_user = {
+    it('should update a specific user by id', async () => {
+      const updateUser = {
         id: user.id,
         username: 'new name',
         name: { givenName: 'new' },
         emails: [{ type: 'work', value: 'new@test.org' }],
         photos: [{ type: 'profile', value: 'https://image.com?id=1' }],
-        info1: 'This is info1'
+        info1: 'This is info1',
       };
-      let result = await db.update(update_user);
-      expect(result.success).to.be.true;
+      const result = await db.update(updateUser);
+      expect(result.success).to.be.true; // eslint-disable-line
     });
   });
 
   // remove Method
   describe('remove', () => {
     it('should remove an user by id', async () => {
-      let result = await db.remove(user.id);
+      const result = await db.remove(user.id);
       expect(result).to.deep.equal({ success: true });
     });
   });
-
 });

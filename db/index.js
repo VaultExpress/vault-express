@@ -1,7 +1,12 @@
 require('dotenv').config();
-let durl = process.env.DATABASE_URL;
-let cfg = require('../config');
 
-if (durl.indexOf('postgres://') > -1) module.exports = require('./db-postgres')(durl, cfg)
-else if (durl.indexOf('mongodb://') > -1) module.exports = require('./db-mongo')(durl, cfg)
-else module.exports = require('./db-json')(durl, cfg);
+const durl = process.env.DATABASE_URL;
+
+const cfg = require('../config');
+const dbPostgres = require('./db-postgres');
+const dbMongo = require('./db-mongo');
+const dbJson = require('./db-json');
+
+if (durl.indexOf('postgres://') > -1) module.exports = dbPostgres(durl, cfg);
+else if (durl.indexOf('mongodb://') > -1) module.exports = dbMongo(durl, cfg);
+else module.exports = dbJson(durl, cfg);
